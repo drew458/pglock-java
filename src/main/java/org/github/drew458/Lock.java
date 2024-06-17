@@ -19,4 +19,8 @@ public class Lock {
     public Boolean acquireLock(Integer lockCode) {
         return jdbcTemplate.queryForObject("SELECT pg_try_advisory_lock(?)", Boolean.class, lockCode);
     }
+
+    public void unlock(Integer lockCode) {
+        jdbcTemplate.queryForObject("SELECT pg_try_advisory_unlock(?)", Boolean.class, lockCode);
+    }
 }

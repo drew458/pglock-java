@@ -11,14 +11,24 @@ public class Lock {
     private JdbcTemplate jdbcTemplate;
 
     /**
-     * Obtains an exclusive transaction-level advisory lock if available.
+     * Obtains an exclusive session-level advisory lock, waiting if necessary.
+     * @param lockCode A 64-bit integer
+     */
+    public void lock(Integer lockCode) {
+         jdbcTemplate.query("SELECT pg_advisory_lock(?)", rs -> null, lockCode);
+    }
+
+    /**
+     * Obtains an exclusive session-level advisory lock if available.
      * Does not wait if the lock cannot be acquired immediately
      * @param lockCode A 64-bit integer
-     * @return true if it can obtain the lock immediately, or false if the lock cannot be acquired.
+     * @return True if it can obtain the lock immediately, False otherwise.
      */
-    public Boolean acquireLock(Integer lockCode) {
+    public Boolean tryLock(Integer lockCode) {
         return jdbcTemplate.queryForObject("SELECT pg_try_advisory_lock(?)", Boolean.class, lockCode);
     }
+
+    // TODO implement tryLock(long time, TimeUnit unit)
 
     public void unlock(Integer lockCode) {
         jdbcTemplate.queryForObject("SELECT pg_try_advisory_unlock(?)", Boolean.class, lockCode);

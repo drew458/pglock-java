@@ -17,6 +17,6 @@ public class Lock {
      * @return true if it can obtain the lock immediately, or false if the lock cannot be acquired.
      */
     public Boolean acquireLock(Integer lockCode) {
-        return jdbcTemplate.queryForObject("SELECT pg_try_advisory_xact_lock(?)", Boolean.class, lockCode);
+        return jdbcTemplate.queryForObject("SELECT pg_try_advisory_lock(?)", Boolean.class, lockCode);
     }
 }

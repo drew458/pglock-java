@@ -31,6 +31,6 @@ public class Lock {
     // TODO implement tryLock(long time, TimeUnit unit)
 
     public void unlock(Integer lockCode) {
-        jdbcTemplate.queryForObject("SELECT pg_try_advisory_unlock(?)", Boolean.class, lockCode);
+        jdbcTemplate.queryForObject("SELECT pg_advisory_unlock(?)", Boolean.class, lockCode);
     }
 }

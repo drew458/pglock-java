@@ -5,7 +5,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 @Service
-public class SessionLocking {
+public class SessionLock {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;

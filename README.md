@@ -1,7 +1,9 @@
-# pglock - A Java client for distributed locking in PostgreSQL
+# pglock - A Java client for distributed locking with PostgreSQL
 
-PostgreSQL's backed distributed lock.  
-Useful in distributed architectures (e.g. microservices) or when you have multiple instances of the same service running, and you need to be sure that only one performs certain task.  
+A Java library to implement distributed locking using [PostgreSQL](https://www.postgresql.org/docs/current/explicit-locking.html#ADVISORY-LOCKS).  
+
+Distributed locking is useful in distributed architectures (e.g. microservices) or when you have multiple instances of the same service running, and you need to be sure that only one performs certain task.  
+
 As an example, if you have a scheduled method and only one of your services has to execute it at a certain time, you can acquire the distributed lock at the start of the method and then perform the logic.
 
 ## About PostgreSQL distributed locks
@@ -23,6 +25,11 @@ How it works, basically:
 - You make some SQL requests to your database
 - If any other transaction, e.g. B, will attempt to acquire lock with the same id, then it will wait until such lock will be released by A. You can specify the timeout, so transaction will wait some time and if lock won’t be unlocked B fails.
 - In the end A releases lock with id = X, so it will become available to other transactions
+
+## Requirements
+
+- Java 8+
+- Spring 3.0+
 
 ## Notes
 - Make sure it is always configured to talk to leaders and not followers in the case of replicated setups.  

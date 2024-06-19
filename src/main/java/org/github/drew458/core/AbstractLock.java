@@ -20,6 +20,7 @@ public abstract class AbstractLock {
     /**
      * Releases a previously-acquired exclusive session-level lock.
      * If the lock was not held by the current session the method will still return normally.
+     *
      * @param lock An instantiated lock
      */
     public void unlock(Lock lock) {

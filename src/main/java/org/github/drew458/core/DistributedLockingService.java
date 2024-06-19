@@ -40,7 +40,8 @@ public class DistributedLockingService extends AbstractLock {
                 return transactionLock.tryLock(lock);
             }
 
-            default: throw new NotImplementedException();
+            default:
+                throw new NotImplementedException();
         }
     }
 }

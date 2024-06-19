@@ -3,7 +3,6 @@ package org.github.drew458.core;
 import org.github.drew458.model.Lock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 @Service
 public class DistributedLockingService extends AbstractLock {
@@ -40,8 +39,7 @@ public class DistributedLockingService extends AbstractLock {
                 return transactionLock.tryLock(lock);
             }
 
-            default:
-                throw new NotImplementedException();
+            default: return false;
         }
     }
 }

@@ -32,16 +32,16 @@ Transaction-level lock requests, on the other hand, are automatically released a
 Below is a basic usage of a distributed lock usage. Note that ```tryLock(...)``` does not wait for the lock to be acquired.
 
 ```java
-import org.github.drew458.core.DistributedLockingService;
+import org.github.drew458.core.DistributedLockService;
 import org.github.drew458.model.Lock;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class Main {
-    
+
     private static final Lock FOO_LOCK = new Lock(1234L);
 
     @Autowired
-    private DistributedLockingService distributedLockingService;
+    private DistributedLockService distributedLockService;
 
     private void foo() {
         boolean locked = distributedLockingService.tryLock(FOO_LOCK);
@@ -53,7 +53,7 @@ public class Main {
                 distributedLockingService.unlock(FOO_LOCK);
             }
         }
-    }    
+    }
 }
 ```
 

@@ -27,6 +27,18 @@ Transaction-level lock requests, on the other hand, are automatically released a
 - **Mutual exclusion**: At any given moment, only one client can hold a lock.
 - **Deadlock free**: Eventually it is always possible to acquire a lock, even if the client that locked a resource crashes without explicitly releasing it.
 
+## Get Started
+
+To add a dependency on pglock-java using Maven, use the following:
+
+```xml
+<dependency>
+  <groupId>io.github.drew458</groupId>
+  <artifactId>pglock-java</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
+</dependency>
+```
+
 ## Usage
 
 Below is a basic usage of a distributed lock usage. Note that ```tryLock(...)``` does not wait for the lock to be acquired.

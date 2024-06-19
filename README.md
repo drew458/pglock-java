@@ -53,16 +53,16 @@ public class Main {
     private static final Lock FOO_LOCK = new Lock(1234L);
 
     @Autowired
-    private DistributedLockService distributedLockService;
+    private DistributedLockService lockService;
 
     private void foo() {
-        boolean locked = distributedLockingService.tryLock(FOO_LOCK);
+        boolean locked = lockService.tryLock(FOO_LOCK);
 
         if (locked) {
             try {
                 System.out.println("Bar");
             } finally {
-                distributedLockingService.unlock(FOO_LOCK);
+                lockService.unlock(FOO_LOCK);
             }
         }
     }

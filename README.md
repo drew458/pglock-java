@@ -59,8 +59,8 @@ public class Main {
 
 ## Requirements
 
-- Java 8+
-- Spring 3.0+
+- Java 17 or newer
+- Spring 3.2.6 or newer 
 
 ## Notes
 - Make sure your application is always configured to talk to leaders and not read-only followers in the case of PostgreSQL replicated setups.  

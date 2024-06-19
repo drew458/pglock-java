@@ -3,15 +3,15 @@
 A Java library to implement distributed locking using PostgreSQL.  
 
 Distributed locks are a very useful primitive in many environments where different processes must operate with shared resources in a mutually exclusive way. 
-Think of distributed architectures (e.g. microservices) or when you have multiple instances of the same service running, and you need to be sure that only one performs a certain task.  
+Think of distributed architectures (e.g. microservices) or having multiple instances of the same service running, and you need to be sure that only one performs a certain task.  
 
-As an example, if you have a scheduled method and only one of your services has to execute it at a certain time, you can acquire the distributed lock at the start of the method and then perform the logic.
+As an example, if you have a scheduled function that performs some actions that are not idempotent, only one of your services has to execute it at a certain time, so you can acquire the distributed lock at the start of the method and then perform the logic.
 
 ## About PostgreSQL distributed locks
 
 Postgres [provides](https://www.postgresql.org/docs/current/explicit-locking.html#ADVISORY-LOCKS) simple mechanism to store that locks in database and check their state. 
-Locks are fast, avoid table bloat, and are automatically cleaned up by the server at the end of the session.  
-They can be acquired at session level or at transaction level.  
+Locks are fast, correct, avoid table bloat, and are automatically cleaned up by at the end of the session.  
+They can be acquired at **session level** or at **transaction level**.  
 
 ### Session Level locks
 

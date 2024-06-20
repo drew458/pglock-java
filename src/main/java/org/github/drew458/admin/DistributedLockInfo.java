@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class LocksInfo {
+public class DistributedLockInfo {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -26,7 +26,7 @@ public class LocksInfo {
      * @return A list of Locks
      */
     public List<Lock> getAllLocks() {
-        return jdbcTemplate.query("SELECT CAST(objid AS bigint) FROM pg_locks WHERE locktype = 'advisory' ",
+        return jdbcTemplate.query("SELECT CAST(objid AS bigint) FROM pg_locks WHERE locktype = 'advisory'",
                 (rs, rowNum) -> new Lock(rs.getLong(1)));
     }
 }

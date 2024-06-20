@@ -30,16 +30,9 @@ public class DistributedLockService extends AbstractLock {
 
     @Override
     public Boolean tryLock(Lock lock) {
-        switch (lock.getLockType()) {
-            case SESSION_LOCK: {
-                return sessionLock.tryLock(lock);
-            }
-
-            case TRANSACTION_LOCK: {
-                return transactionLock.tryLock(lock);
-            }
-
-            default: return false;
-        }
+        return switch (lock.getLockType()) {
+            case SESSION_LOCK -> sessionLock.tryLock(lock);
+            case TRANSACTION_LOCK -> transactionLock.tryLock(lock);
+        };
     }
 }

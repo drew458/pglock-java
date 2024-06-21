@@ -41,7 +41,7 @@ To add a dependency on pglock-java using Maven, use the following:
 
 ## Usage
 
-Below is a basic usage of a distributed lock usage. Note that ```tryLock(...)``` does not wait for the lock to be acquired.
+Below is a basic usage of a distributed lock. Note that ```tryLock(...)``` does not wait for the lock to be acquired.
 
 ```java
 import org.github.drew458.core.DistributedLockService;
@@ -68,6 +68,34 @@ public class Main {
     }
 }
 ```
+
+Otherwise, if you want the method to wait until the lock is acquired, the code is very simple:
+
+```java
+import org.github.drew458.core.DistributedLockService;
+import org.github.drew458.model.Lock;
+import org.springframework.beans.factory.annotation.Autowired;
+
+public class Main {
+
+    private static final Lock FOO_LOCK = new Lock(1234L);
+
+    @Autowired
+    private DistributedLockService lockService;
+
+    private void foo() {
+        lockService.lock(FOO_LOCK); // the method will wait here until the lock is acquired
+
+        try {
+            System.out.println("Bar");
+        } finally {
+            lockService.unlock(FOO_LOCK);
+        }
+    }
+}
+```
+
+### 
 
 ## Requirements
 

@@ -1,6 +1,6 @@
 # pglock - A Java client for distributed locking with PostgreSQL
 
-A Java library to implement distributed locking using PostgreSQL.  
+A Java library to implement distributed locking using PostgreSQL, which leverages the well-known Java [Lock API](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/concurrent/locks/Lock.html) semantics to make your code straight forward.
 
 Distributed locks are a very useful primitive in many environments where different processes must operate with shared resources in a mutually exclusive way. 
 Think of distributed architectures (e.g. microservices) or having multiple instances of the same service running, and you need to be sure that only one performs a certain task.  
@@ -29,19 +29,19 @@ Transaction-level lock requests, on the other hand, are automatically released a
 
 ## Get Started
 
-To add a dependency on pglock-java using Maven, use the following:
+To add a dependency on `pglock-java` using Maven, use the following:
 
 ```xml
 <dependency>
   <groupId>io.github.drew458</groupId>
   <artifactId>pglock-java</artifactId>
-  <version>1.0.0-SNAPSHOT</version>
+  <version>1.0.4</version>
 </dependency>
 ```
 
 ## Usage
 
-Below is a basic usage of a distributed lock. Note that ```tryLock(...)``` does not wait for the lock to be acquired.
+Once your Spring application is configured correctly to talk with a PostgreSQL database, you can start using the library like in this basic example. Note that ```tryLock(...)``` does not wait for the lock to be acquired.
 
 ```java
 import org.github.drew458.core.DistributedLockService;
@@ -100,7 +100,8 @@ public class Main {
 ## Requirements
 
 - Java 17 or newer
-- Spring 3.2.6 or newer 
+- Spring 3.2.6 or newer
+- PostgreSQL 13 or newer
 
 ## Notes
 - Make sure your application is always configured to talk to leaders and not read-only followers in the case of PostgreSQL replicated setups.  

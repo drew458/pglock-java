@@ -6,7 +6,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 @Service
-public abstract class AbstractLock {
+public abstract class AbstractDistributedLock {
 
     @Autowired
     protected JdbcTemplate jdbcTemplate;
@@ -24,6 +24,6 @@ public abstract class AbstractLock {
      * @param lock An instantiated lock
      */
     public void unlock(Lock lock) {
-        jdbcTemplate.queryForObject("SELECT pg_advisory_unlock(?)", Boolean.class, lock.getCode());
+        jdbcTemplate.queryForObject("SELECT pg_advisory_unlock(?)", Boolean.class, lock.getKey());
     }
 }

@@ -6,21 +6,25 @@ public class Lock {
 
     private LockType lockType = LockType.SESSION_LOCK;
 
-    public Lock(Long code, LockType lockType) {
-        this.code = code;
+    public Lock(Long key, LockType lockType) {
+        this.key = key;
         this.lockType = lockType;
     }
 
-    public Lock(Long code) {
-        this.code = code;
+    public Lock(Integer key1, Integer key2) {
+        this.key = combineKeys(key1, key2);
     }
 
-    public Long getCode() {
-        return code;
+    public Lock(Long key) {
+        this.key = key;
     }
 
-    public void setCode(Long code) {
-        this.code = code;
+    public Long getKey() {
+        return key;
+    }
+
+    public void setKey(Long key) {
+        this.key = key;
     }
 
     public LockType getLockType() {

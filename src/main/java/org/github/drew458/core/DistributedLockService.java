@@ -5,13 +5,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class DistributedLockService extends AbstractLock {
+public class DistributedLockService extends AbstractDistributedLock {
 
     @Autowired
-    private SessionLock sessionLock;
+    private DistributedSessionLock sessionLock;
 
     @Autowired
-    private TransactionLock transactionLock;
+    private DistributedTransactionLock transactionLock;
 
     @Override
     public void lock(Lock lock) {

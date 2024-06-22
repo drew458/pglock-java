@@ -4,7 +4,7 @@ import org.github.drew458.model.Lock;
 import org.springframework.stereotype.Service;
 
 @Service
-class TransactionLock extends AbstractLock {
+class DistributedTransactionLock extends AbstractDistributedLock {
 
     /**
      * Obtains an exclusive transaction-level lock, waiting if necessary.
@@ -13,7 +13,7 @@ class TransactionLock extends AbstractLock {
      */
     @Override
     protected void lock(Lock lock) {
-        jdbcTemplate.query("SELECT pg_advisory_xact_lock(?)", rs -> null, lock.getCode());
+        jdbcTemplate.query("SELECT pg_advisory_xact_lock(?)", rs -> null, lock.getKey());
     }
 
     /**
@@ -24,6 +24,6 @@ class TransactionLock extends AbstractLock {
      */
     @Override
     protected Boolean tryLock(Lock lock) {
-        return jdbcTemplate.queryForObject("SELECT pg_try_advisory_xact_lock(?)", Boolean.class, lock.getCode());
+        return jdbcTemplate.queryForObject("SELECT pg_try_advisory_xact_lock(?)", Boolean.class, lock.getKey());
     }
 }

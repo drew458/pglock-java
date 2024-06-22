@@ -4,7 +4,7 @@ import org.github.drew458.model.Lock;
 import org.springframework.stereotype.Service;
 
 @Service
-class SessionLock extends AbstractLock {
+class DistributedSessionLock extends AbstractDistributedLock {
 
     /**
      * Obtains an exclusive session-level lock, waiting if necessary.
@@ -13,7 +13,7 @@ class SessionLock extends AbstractLock {
      */
     @Override
     protected void lock(Lock lock) {
-        jdbcTemplate.query("SELECT pg_advisory_lock(?)", rs -> null, lock.getCode());
+        jdbcTemplate.query("SELECT pg_advisory_lock(?)", rs -> null, lock.getKey());
     }
 
     /**
@@ -25,6 +25,6 @@ class SessionLock extends AbstractLock {
      */
     @Override
     protected Boolean tryLock(Lock lock) {
-        return jdbcTemplate.queryForObject("SELECT pg_try_advisory_lock(?)", Boolean.class, lock.getCode());
+        return jdbcTemplate.queryForObject("SELECT pg_try_advisory_lock(?)", Boolean.class, lock.getKey());
     }
 }

@@ -4,7 +4,7 @@ public class Lock {
 
     private Long code;
 
-    private LockType lockType = LockType.TRANSACTION_LOCK;
+    private LockType lockType = LockType.SESSION_LOCK;
 
     public Lock(Long code, LockType lockType) {
         this.code = code;

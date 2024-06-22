@@ -29,7 +29,7 @@ public class DistributedLockInfo {
      */
     public Boolean isLocked(Lock lock) {
         return jdbcTemplate.queryForObject("SELECT EXISTS ( " +
-                        "SELECT objid FROM pg_locks WHERE locktype = 'advisory' AND CAST(objid AS bigint) = ?" +
+                        "SELECT objid FROM pg_catalog.pg_locks WHERE locktype = 'advisory' AND CAST(objid AS bigint) = ?" +
                         ")",
                 Boolean.class, lock);
     }

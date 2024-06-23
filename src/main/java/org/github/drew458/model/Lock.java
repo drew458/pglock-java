@@ -2,7 +2,9 @@ package org.github.drew458.model;
 
 public class Lock {
 
-    private Long code;
+public class Lock implements Closeable {
+
+    private Long key;
 
     private LockType lockType = LockType.SESSION_LOCK;
 

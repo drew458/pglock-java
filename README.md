@@ -44,6 +44,7 @@ To add a dependency on `pglock-java` using Maven, use the following:
 Once your Spring application is configured correctly to talk with a PostgreSQL database, you can start using the library like in this basic example. Note that ```tryLock(...)``` does not wait for the lock to be acquired.
 
 ```java
+import org.github.drew458.core.DistributedLockManager;
 import org.github.drew458.core.DistributedLockService;
 import org.github.drew458.model.Lock;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,7 +54,7 @@ public class Main {
     private static final Lock FOO_LOCK = new Lock(1234L);
 
     @Autowired
-    private DistributedLockService lockService;
+    private DistributedLockManager lockService;
 
     private void foo() {
         boolean locked = lockService.tryLock(FOO_LOCK);
@@ -72,7 +73,7 @@ public class Main {
 Otherwise, if you want the method to wait until the lock is acquired, the code is very simple:
 
 ```java
-import org.github.drew458.core.DistributedLockService;
+import org.github.drew458.core.DistributedLockManager;
 import org.github.drew458.model.Lock;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -81,7 +82,7 @@ public class Main {
     private static final Lock FOO_LOCK = new Lock(1234L);
 
     @Autowired
-    private DistributedLockService lockService;
+    private DistributedLockManager lockService;
 
     private void foo() {
         lockService.lock(FOO_LOCK); // the method will wait here until the lock is acquired

@@ -15,7 +15,7 @@ import java.util.List;
  * remaining bits with 1. Therefore, the final 64 bit value is 0-9 7-bit characters followed by 0,
  * followed by N=63-(7*length) 1s
  */
-public class Lock {
+public class DistributedLock {
 
     private static final int ASCII_CHAR_BITS = 7;
     private static final int MAX_ASCII_VALUE = (1 << ASCII_CHAR_BITS) - 1;
@@ -40,23 +40,23 @@ public class Lock {
 
     private LockType lockType = LockType.SESSION_LOCK;
 
-    public Lock(long key) {
+    public DistributedLock(long key) {
         this.key = key;
         this.keyEncoding = KeyEncoding.INT_64;
     }
 
-    public Lock(long key, LockType lockType) {
+    public DistributedLock(long key, LockType lockType) {
         this.key = key;
         this.keyEncoding = KeyEncoding.INT_64;
         this.lockType = lockType;
     }
 
-    public Lock(int key1, int key2) {
+    public DistributedLock(int key1, int key2) {
         this.key = combineKeys(key1, key2);
         this.keyEncoding = KeyEncoding.INT_32_PAIR;
     }
 
-    public Lock(int key1, int key2, LockType lockType) {
+    public DistributedLock(int key1, int key2, LockType lockType) {
         this.key = combineKeys(key1, key2);
         this.keyEncoding = KeyEncoding.INT_32_PAIR;
         this.lockType = lockType;
@@ -76,7 +76,7 @@ public class Lock {
      * @param name         The lock key
      * @param allowHashing if True, the string will be hashed if other methods fail
      */
-    public Lock(@NonNull String name, boolean allowHashing) throws Exception {
+    public DistributedLock(@NonNull String name, boolean allowHashing) throws Exception {
 
         try {
             this.key = tryEncodeAscii(name);
@@ -193,7 +193,7 @@ public class Lock {
         return result;
     }
 
-    public boolean hasSingleKey() {
+    public boolean isSingleKey() {
         return keyEncoding == KeyEncoding.INT_64;
     }
 

@@ -1,6 +1,6 @@
 package org.github.drew458.admin;
 
-import org.github.drew458.model.Lock;
+import org.github.drew458.model.DistributedLock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -27,7 +27,7 @@ public class DistributedLockInfo {
      * @param lock An instantiated lock
      * @return true if any session holds this lock and false otherwise
      */
-    public Boolean isLocked(Lock lock) {
+    public Boolean isLocked(DistributedLock lock) {
         return jdbcTemplate.queryForObject("SELECT EXISTS ( " +
                         "SELECT objid FROM pg_catalog.pg_locks WHERE locktype = 'advisory' AND CAST(objid AS bigint) = ?" +
                         ")",
@@ -39,8 +39,8 @@ public class DistributedLockInfo {
      *
      * @return A list of Locks
      */
-    public List<Lock> getAllLocks() {
+    public List<DistributedLock> getAllLocks() {
         return jdbcTemplate.query("SELECT CAST(objid AS bigint) FROM pg_locks WHERE locktype = 'advisory'",
-                (rs, rowNum) -> new Lock(rs.getLong(1)));
+                (rs, rowNum) -> new DistributedLock(rs.getLong(1)));
     }
 }

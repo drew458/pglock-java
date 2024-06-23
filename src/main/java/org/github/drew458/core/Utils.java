@@ -1,6 +1,6 @@
 package org.github.drew458.core;
 
-import org.github.drew458.model.Lock;
+import org.github.drew458.model.DistributedLock;
 
 public class Utils {
 
@@ -25,10 +25,10 @@ public class Utils {
         return sb.toString();
     }
 
-    protected static Object[] getParams(Lock lock) {
+    protected static Object[] getParams(DistributedLock lock) {
         Object[] params;
 
-        if (lock.hasSingleKey()) {
+        if (lock.isSingleKey()) {
             params = new Object[]{lock.getKey()};
         } else {
             var keys = lock.getKeys();

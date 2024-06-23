@@ -1,6 +1,6 @@
 package org.github.drew458.core;
 
-import org.github.drew458.model.Lock;
+import org.github.drew458.model.DistributedLock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,25 +14,25 @@ public class DistributedLockManager extends AbstractLock {
     private TransactionLock transactionLock;
 
     @Override
-    public void lock(Lock lock) {
-        switch (lock.getLockType()) {
+    public void lock(DistributedLock distributedLock) {
+        switch (distributedLock.getLockType()) {
             case SESSION_LOCK: {
-                sessionLock.lock(lock);
+                sessionLock.lock(distributedLock);
                 break;
             }
 
             case TRANSACTION_LOCK: {
-                transactionLock.lock(lock);
+                transactionLock.lock(distributedLock);
                 break;
             }
         }
     }
 
     @Override
-    public Boolean tryLock(Lock lock) {
-        return switch (lock.getLockType()) {
-            case SESSION_LOCK -> sessionLock.tryLock(lock);
-            case TRANSACTION_LOCK -> transactionLock.tryLock(lock);
+    public Boolean tryLock(DistributedLock distributedLock) {
+        return switch (distributedLock.getLockType()) {
+            case SESSION_LOCK -> sessionLock.tryLock(distributedLock);
+            case TRANSACTION_LOCK -> transactionLock.tryLock(distributedLock);
         };
     }
 }

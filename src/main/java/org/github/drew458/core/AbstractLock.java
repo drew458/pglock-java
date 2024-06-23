@@ -6,7 +6,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 @Service
-public abstract class AbstractDistributedLock {
+public abstract class AbstractLock {
 
     @Autowired
     protected JdbcTemplate jdbcTemplate;

@@ -4,7 +4,7 @@ import org.github.drew458.model.Lock;
 import org.springframework.stereotype.Service;
 
 @Service
-class DistributedTransactionLock extends AbstractDistributedLock {
+class TransactionLock extends AbstractLock {
 
     /**
      * Obtains an exclusive transaction-level lock, waiting if necessary.

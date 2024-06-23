@@ -4,7 +4,7 @@ import org.github.drew458.model.Lock;
 import org.springframework.stereotype.Service;
 
 @Service
-class DistributedSessionLock extends AbstractDistributedLock {
+class SessionLock extends AbstractLock {
 
     /**
      * Obtains an exclusive session-level lock, waiting if necessary.

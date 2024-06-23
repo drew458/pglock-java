@@ -45,8 +45,6 @@ Once your Spring application is configured correctly to talk with a PostgreSQL d
 
 ```java
 import org.github.drew458.core.DistributedLockManager;
-import org.github.drew458.core.LockManager;
-import org.github.drew458.core.DistributedLockService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class Main {
@@ -54,16 +52,16 @@ public class Main {
     private static final Lock FOO_LOCK = new Lock(1234L);
 
     @Autowired
-    private DistributedLockManager lockService;
+    private DistributedLockManager lockManager;
 
     private void foo() {
-        boolean locked = lockService.tryLock(FOO_LOCK);
+        boolean locked = lockManager.tryLock(FOO_LOCK);
 
         if (locked) {
             try {
                 System.out.println("Bar");
             } finally {
-                lockService.unlock(FOO_LOCK);
+                lockManager.unlock(FOO_LOCK);
             }
         }
     }
@@ -74,7 +72,6 @@ Otherwise, if you want the method to wait until the lock is acquired, the code i
 
 ```java
 import org.github.drew458.core.DistributedLockManager;
-import org.github.drew458.core.LockManager;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class Main {
@@ -82,15 +79,15 @@ public class Main {
     private static final Lock FOO_LOCK = new Lock(1234L);
 
     @Autowired
-    private DistributedLockManager lockService;
+    private DistributedLockManager lockManager;
 
     private void foo() {
-        lockService.lock(FOO_LOCK); // the method will wait here until the lock is acquired
+        lockManager.lock(FOO_LOCK); // the method will wait here until the lock is acquired
 
         try {
             System.out.println("Bar");
         } finally {
-            lockService.unlock(FOO_LOCK);
+            lockManager.unlock(FOO_LOCK);
         }
     }
 }
@@ -105,4 +102,7 @@ public class Main {
 - PostgreSQL 13 or newer
 
 ## Notes
-- Make sure your application is always configured to talk to leaders and not read-only followers in the case of PostgreSQL replicated setups.  
+- Make sure your application is always configured to talk to leaders and not read-only followers in the case of PostgreSQL replicated setups.
+
+## Contributing
+Contributions are welcome! Open an issue or a Pull Request to help improve the lib.

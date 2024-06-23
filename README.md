@@ -47,7 +47,6 @@ Once your Spring application is configured correctly to talk with a PostgreSQL d
 import org.github.drew458.core.DistributedLockManager;
 import org.github.drew458.core.LockManager;
 import org.github.drew458.core.DistributedLockService;
-import org.github.drew458.model.Lock;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class Main {
@@ -76,7 +75,6 @@ Otherwise, if you want the method to wait until the lock is acquired, the code i
 ```java
 import org.github.drew458.core.DistributedLockManager;
 import org.github.drew458.core.LockManager;
-import org.github.drew458.model.Lock;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class Main {

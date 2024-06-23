@@ -13,7 +13,8 @@ class SessionLock extends AbstractLock {
      */
     @Override
     protected void lock(Lock lock) {
-        jdbcTemplate.query("SELECT pg_advisory_lock(?)", rs -> null, lock.getKey());
+        jdbcTemplate.query(
+                Utils.buildLockQuery(false, true, lock.hasSingleKey()), rs -> null, Utils.getParams(lock));
     }
 
     /**
@@ -25,6 +26,7 @@ class SessionLock extends AbstractLock {
      */
     @Override
     protected Boolean tryLock(Lock lock) {
-        return jdbcTemplate.queryForObject("SELECT pg_try_advisory_lock(?)", Boolean.class, lock.getKey());
+        return jdbcTemplate.queryForObject(
+                Utils.buildLockQuery(true, true, lock.hasSingleKey()), Boolean.class, Utils.getParams(lock));
     }
 }

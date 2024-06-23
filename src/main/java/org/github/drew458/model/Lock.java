@@ -1,6 +1,6 @@
 package org.github.drew458.model;
 
-public class Lock {
+import java.io.Closeable;
 
 public class Lock implements Closeable {
 
@@ -11,10 +11,6 @@ public class Lock implements Closeable {
     public Lock(Long key, LockType lockType) {
         this.key = key;
         this.lockType = lockType;
-    }
-
-    public Lock(Integer key1, Integer key2) {
-        this.key = combineKeys(key1, key2);
     }
 
     public Lock(Long key) {
@@ -35,5 +31,10 @@ public class Lock implements Closeable {
 
     public void setLockType(LockType lockType) {
         this.lockType = lockType;
+    }
+
+    @Override
+    public void close() {
+        //TODO
     }
 }

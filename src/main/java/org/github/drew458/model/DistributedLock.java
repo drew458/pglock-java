@@ -34,15 +34,23 @@ public class DistributedLock {
 
     private long key;
 
+    private LockType lockType = LockType.SESSION_LOCK;
+
+    private boolean isShared = false;
+
     private KeyEncoding keyEncoding;
 
     private static boolean hasSeparator = false;
 
-    private LockType lockType = LockType.SESSION_LOCK;
-
     public DistributedLock(long key) {
         this.key = key;
         this.keyEncoding = KeyEncoding.INT_64;
+    }
+
+    public DistributedLock(long key, boolean isShared) {
+        this.key = key;
+        this.keyEncoding = KeyEncoding.INT_64;
+        this.isShared = isShared;
     }
 
     public DistributedLock(long key, LockType lockType) {
@@ -51,15 +59,35 @@ public class DistributedLock {
         this.lockType = lockType;
     }
 
+    public DistributedLock(long key, LockType lockType, boolean isShared) {
+        this.key = key;
+        this.keyEncoding = KeyEncoding.INT_64;
+        this.lockType = lockType;
+        this.isShared = isShared;
+    }
+
     public DistributedLock(int key1, int key2) {
         this.key = combineKeys(key1, key2);
         this.keyEncoding = KeyEncoding.INT_32_PAIR;
+    }
+
+    public DistributedLock(int key1, int key2, boolean isShared) {
+        this.key = combineKeys(key1, key2);
+        this.keyEncoding = KeyEncoding.INT_32_PAIR;
+        this.isShared = isShared;
     }
 
     public DistributedLock(int key1, int key2, LockType lockType) {
         this.key = combineKeys(key1, key2);
         this.keyEncoding = KeyEncoding.INT_32_PAIR;
         this.lockType = lockType;
+    }
+
+    public DistributedLock(int key1, int key2, LockType lockType, boolean isShared) {
+        this.key = combineKeys(key1, key2);
+        this.keyEncoding = KeyEncoding.INT_32_PAIR;
+        this.lockType = lockType;
+        this.isShared = isShared;
     }
 
     /**
@@ -215,5 +243,13 @@ public class DistributedLock {
 
     public void setLockType(LockType lockType) {
         this.lockType = lockType;
+    }
+
+    public boolean getShared() {
+        return this.isShared;
+    }
+
+    public void setShared(boolean isShared) {
+        this.isShared = isShared;
     }
 }

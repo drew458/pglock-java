@@ -7,26 +7,26 @@ import org.springframework.stereotype.Service;
 class SessionLock extends AbstractLock {
 
     /**
-     * Obtains an exclusive session-level distributedLock, waiting if necessary.
+     * Obtains an exclusive session-level lock, waiting if necessary.
      *
-     * @param distributedLock An instantiated distributedLock
+     * @param lock An instantiated lock
      */
     @Override
-    protected void lock(DistributedLock distributedLock) {
+    protected void lock(DistributedLock lock) {
         jdbcTemplate.query(
-                Utils.buildLockQuery(false, true, distributedLock.isSingleKey()), rs -> null, Utils.getParams(distributedLock));
+                Utils.buildLockQuery(false, true, lock.isSingleKey(), lock.getShared()), rs -> null, Utils.getParams(lock));
     }
 
     /**
-     * Obtains an exclusive session-level distributedLock if available.
-     * Does not wait if the distributedLock cannot be acquired immediately
+     * Obtains an exclusive session-level lock if available.
+     * Does not wait if the lock cannot be acquired immediately
      *
-     * @param distributedLock An instantiated distributedLock
-     * @return True if it can obtain the distributedLock immediately, False otherwise.
+     * @param lock An instantiated lock
+     * @return True if it can obtain the lock immediately, False otherwise.
      */
     @Override
-    protected Boolean tryLock(DistributedLock distributedLock) {
+    protected Boolean tryLock(DistributedLock lock) {
         return jdbcTemplate.queryForObject(
-                Utils.buildLockQuery(true, true, distributedLock.isSingleKey()), Boolean.class, Utils.getParams(distributedLock));
+                Utils.buildLockQuery(true, true, lock.isSingleKey(), lock.getShared()), Boolean.class, Utils.getParams(lock));
     }
 }

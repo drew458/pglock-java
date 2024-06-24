@@ -11,11 +11,11 @@ public abstract class AbstractLock {
     @Autowired
     protected JdbcTemplate jdbcTemplate;
 
-    // TODO implement tryLock(long time, TimeUnit unit)
-
     protected abstract void lock(DistributedLock lock);
 
     protected abstract Boolean tryLock(DistributedLock lock);
+
+    // TODO implement tryLock(long time, TimeUnit unit)
 
     /**
      * Releases a previously-acquired exclusive session-level distributedLock.
@@ -24,6 +24,7 @@ public abstract class AbstractLock {
      * @param lock An instantiated distributedLock
      */
     public void unlock(DistributedLock lock) {
-        jdbcTemplate.queryForObject("SELECT pg_advisory_unlock(?)", Boolean.class, lock.getKey());
+
+        jdbcTemplate.queryForObject(Utils.buildUnlockQuery(lock.isSingleKey(), lock.getShared()), Boolean.class, Utils.getParams(lock));
     }
 }

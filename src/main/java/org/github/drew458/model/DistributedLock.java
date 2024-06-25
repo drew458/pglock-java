@@ -42,23 +42,41 @@ public class DistributedLock {
 
     private static boolean hasSeparator = false;
 
+    /**
+     * The default lock configuration is a mutual exclusive session lock.
+     * @param key A 64 bit lock identifier
+     */
     public DistributedLock(long key) {
         this.key = key;
         this.keyEncoding = KeyEncoding.INT_64;
     }
 
+    /**
+     *
+     * @param key A 64 bit lock identifier
+     * @param isShared A shared lock does not conflict with other shared locks on the same resource, only with exclusive locks.
+     */
     public DistributedLock(long key, boolean isShared) {
         this.key = key;
         this.keyEncoding = KeyEncoding.INT_64;
         this.isShared = isShared;
     }
 
+    /**
+     * @param key A 64 bit lock identifier
+     * @param lockType Specifies if is Session level or Transaction level
+     */
     public DistributedLock(long key, LockType lockType) {
         this.key = key;
         this.keyEncoding = KeyEncoding.INT_64;
         this.lockType = lockType;
     }
 
+    /**
+     * @param key A 64 bit lock identifier
+     * @param lockType Specifies if is Session level or Transaction level
+     * @param isShared A shared lock does not conflict with other shared locks on the same resource, only with exclusive locks.
+     */
     public DistributedLock(long key, LockType lockType, boolean isShared) {
         this.key = key;
         this.keyEncoding = KeyEncoding.INT_64;
@@ -66,23 +84,43 @@ public class DistributedLock {
         this.isShared = isShared;
     }
 
+    /**
+     * @param key1 A 32-bit integer
+     * @param key2 A 32-bit integer
+     */
     public DistributedLock(int key1, int key2) {
         this.key = combineKeys(key1, key2);
         this.keyEncoding = KeyEncoding.INT_32_PAIR;
     }
 
+    /**
+     * @param key1 A 32-bit integer
+     * @param key2 A 32-bit integer
+     * @param isShared A shared lock does not conflict with other shared locks on the same resource, only with exclusive locks.
+     */
     public DistributedLock(int key1, int key2, boolean isShared) {
         this.key = combineKeys(key1, key2);
         this.keyEncoding = KeyEncoding.INT_32_PAIR;
         this.isShared = isShared;
     }
 
+    /**
+     * @param key1 A 32-bit integer
+     * @param key2 A 32-bit integer
+     * @param lockType Specifies if is Session level or Transaction level
+     */
     public DistributedLock(int key1, int key2, LockType lockType) {
         this.key = combineKeys(key1, key2);
         this.keyEncoding = KeyEncoding.INT_32_PAIR;
         this.lockType = lockType;
     }
 
+    /**
+     * @param key1 A 32-bit integer
+     * @param key2 A 32-bit integer
+     * @param lockType Specifies if is Session level or Transaction level
+     * @param isShared A shared lock does not conflict with other shared locks on the same resource, only with exclusive locks.
+     */
     public DistributedLock(int key1, int key2, LockType lockType, boolean isShared) {
         this.key = combineKeys(key1, key2);
         this.keyEncoding = KeyEncoding.INT_32_PAIR;

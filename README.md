@@ -95,6 +95,11 @@ public class Main {
 }
 ```
 
+The default lock configuration is a **mutual exclusive session lock**. Session locks are held until released or the application shuts down.  
+Other configurations include:
+- **Transaction level** lock: They are held until the current transaction ends; there is no need for manual release.
+- **Shared** lock: A shared lock does not conflict with other shared locks on the same resource, only with exclusive locks.
+
 ### Lock keys
 
 Since distributed locks (and other distributed synchronization primitives) are not bound to a single process, their identity is based on the key(s) provided through the constructor.  

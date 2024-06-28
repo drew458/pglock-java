@@ -17,7 +17,7 @@ public class DistributedLockInfo {
      * Releases all session-level advisory locks held by the current session.
      */
     public void unlockAll() {
-        jdbcTemplate.query("SELECT pg_advisory_unlock_all()", rse -> null);
+        jdbcTemplate.query("SELECT pg_catalog.pg_advisory_unlock_all()", rse -> null);
     }
 
     /**
@@ -40,7 +40,7 @@ public class DistributedLockInfo {
      * @return A list of Locks
      */
     public List<DistributedLock> getAllLocks() {
-        return jdbcTemplate.query("SELECT CAST(objid AS bigint) FROM pg_locks WHERE locktype = 'advisory'",
+        return jdbcTemplate.query("SELECT CAST(objid AS bigint) FROM pg_catalog.pg_locks WHERE locktype = 'advisory'",
                 (rs, rowNum) -> new DistributedLock(rs.getLong(1)));
     }
 }

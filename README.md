@@ -3,7 +3,7 @@
 A Java library to implement distributed locking using PostgreSQL, which leverages the well-known Java [Lock API](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/concurrent/locks/Lock.html) semantics to make your code straight forward.
 
 Distributed locks are a very useful primitive in many environments where different processes must operate with shared resources in a mutually exclusive way. 
-Think of distributed architectures (e.g. microservices) or having multiple instances of the same service running, and you need to be sure that only one performs a certain task.  
+In both distributed and monolithic systems, you often need to have things which are performed in an orderly or synchronized manner. In almost all cases where synchronization is required, it is due to the system needing to write something.  
 
 As an example, if you have a scheduled function that performs some actions that are not idempotent, only one of your services has to execute it at a certain time, so you can acquire the distributed distributedLock at the start of the method and then perform the logic.
 
